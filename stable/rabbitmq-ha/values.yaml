@@ -333,17 +333,12 @@ tolerations: []
 
 podAnnotations: {}
 
-<<<<<<< HEAD
-podAntiAffinity: hard
-podAntiAffinityTopologyKey: "kubernetes.io/hostname"
-
-=======
 ## Extra Annotations to be added to the StatefulSet
 statefulSetAnnotations: {}
 
 ## Pod affinity
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-podAntiAffinity: soft
+podAntiAffinity: hard
 podAntiAffinityTopologyKey: "kubernetes.io/hostname"
 
 ## Affinity settings
@@ -354,7 +349,6 @@ affinity: {}
 
 ## Create default configMap
 ##
->>>>>>> a63e6819b8acc4617cd480acd0d5094e482de2b5
 existingConfigMap: false
 
 extraLabels: {}
