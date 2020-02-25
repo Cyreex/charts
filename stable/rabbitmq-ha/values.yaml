@@ -310,6 +310,23 @@ persistentVolume:
   annotations: {}
   labels: {}
 
+# To use a hostPath for data, you need to set persistentVolume.enabled: false
+# and define hostPath.path
+# Warning: this might overwrite existing folders on the host system!
+hostPath:
+  enabled: false
+  ## path is evaluated as template so placeholders are replaced
+  path: /data/rabbitmq-ha
+  # if chown is true, an init-container with root permissions is launched to
+  # change the owner of the hostPath folder to the user defined in the
+  # security context
+  chown: true
+  type: DirectoryOrCreate
+  # we need to use path on all hosts to save data
+  mnesiaDir: $RABBITMQ_MNESIA_BASE/mnesia_dir
+  pluginsExpandDir: $RABBITMQ_MNESIA_BASE/plugins-expand
+
+
 nodeSelector: []
 
 tolerations: []
@@ -426,12 +443,8 @@ prometheus:
 
 clusterDomain: cluster.local
 podDisruptionBudget: {}
-<<<<<<< HEAD
   # maxUnavailable: 1
   # minAvailable: 1
-
-lifecycle: {}
-=======
 
 ## Sensu CRD configuration
 sensu:
@@ -440,4 +453,5 @@ sensu:
   subscriptions:
     - rabbitmq
     - rabbitmq-ha
->>>>>>> From gitlab
+
+lifecycle: {}

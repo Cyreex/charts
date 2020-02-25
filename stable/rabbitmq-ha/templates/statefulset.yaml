@@ -39,6 +39,9 @@ spec:
         {{- if not .Values.existingConfigMap }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- end }}
+        {{- if not .Values.existingSecret }}	
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}	
+        {{- end }}
         {{- if and .Values.prometheus.exporter.enabled (not .Values.prometheus.operator.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: {{ .Values.prometheus.exporter.port | quote }}
@@ -271,7 +274,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- else }}
-      {{- if eq .Values.podAntiAffinity "hard" }}
+      {{- if or (eq .Values.podAntiAffinity "hard") (.Values.hostPath.enabled) }}
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
