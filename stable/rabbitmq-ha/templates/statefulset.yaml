@@ -11,11 +11,11 @@ metadata:
 {{- if .Values.extraLabels }}
 {{ toYaml .Values.extraLabels | indent 4 }}
 {{- end }}
-{{- if .Values.statefulSetAnnotations }}	
-  annotations:	
-{{- range $key, $value := .Values.statefulSetAnnotations }}	
-    {{ $key }}: {{ $value | quote }}	
-{{- end }}	
+{{- if .Values.statefulSetAnnotations }}
+  annotations:
+{{- range $key, $value := .Values.statefulSetAnnotations }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
 {{- end }}
 spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
@@ -39,17 +39,17 @@ spec:
         {{- if not .Values.existingConfigMap }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- end }}
-        {{- if not .Values.existingSecret }}	
-        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}	
+        {{- if not .Values.existingSecret }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- end }}
         {{- if and .Values.prometheus.exporter.enabled (not .Values.prometheus.operator.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: {{ .Values.prometheus.exporter.port | quote }}
         {{- end }}
-        {{- if and .Values.rabbitmqPrometheusPlugin.enabled (not .Values.prometheus.operator.enabled) }}	
-        prometheus.io/scrape: "true"	
-        prometheus.io/port: {{ .Values.rabbitmqPrometheusPlugin.port | quote }}	
-        prometheus.io/path: {{ .Values.rabbitmqPrometheusPlugin.path | quote }}	
+        {{- if and .Values.rabbitmqPrometheusPlugin.enabled (not .Values.prometheus.operator.enabled) }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.rabbitmqPrometheusPlugin.port | quote }}
+        prometheus.io/path: {{ .Values.rabbitmqPrometheusPlugin.path | quote }}
         {{- end }}
 {{- if .Values.podAnnotations }}
 {{ toYaml .Values.podAnnotations | indent 8 }}
@@ -181,9 +181,9 @@ spec:
             {{- toYaml .Values.livenessProbe | trim | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | trim | nindent 12 }}
-          {{- if .Values.lifecycle }}	
-          lifecycle:	
-            {{- toYaml .Values.lifecycle | trim | nindent 12 }}	
+          {{- if .Values.lifecycle }}
+          lifecycle:
+            {{- toYaml .Values.lifecycle | trim | nindent 12 }}
           {{- end }}
           env:
             - name: MY_POD_NAME
@@ -296,10 +296,10 @@ spec:
       schedulerName: "{{ .Values.schedulerName }}"
       {{- end }}
       {{- if .Values.affinity }}
-      affinity:	
-      {{- with .Values.affinity }}	
-        {{- toYaml . | nindent 8 }}	
-      {{- end }}	
+      affinity:
+      {{- with .Values.affinity }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- else }}
       {{- if or (eq .Values.podAntiAffinity "hard") (.Values.hostPath.enabled) }}
       affinity:

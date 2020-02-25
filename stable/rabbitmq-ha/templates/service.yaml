@@ -3,7 +3,7 @@ kind: Service
 metadata:
 {{- if .Values.service.annotations }}
   annotations:
-{{ toYaml .Values.service.annotations | indent 4 }}
+{{ tpl (toYaml .Values.service.annotations) . | indent 4 }}
 {{- end }}
   name: {{ template "rabbitmq-ha.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -33,11 +33,11 @@ spec:
 {{ toYaml .Values.service.loadBalancerSourceRanges | indent 4 }}
 {{- end }}
   ports:
-    {{- if .Values.rabbitmqAmqpsSupport.enabled }}	
-    - name: amqps	
-      protocol: TCP	
-      port: {{ .Values.rabbitmqAmqpsSupport.amqpsNodePort }}	
-      targetPort: amqps	
+    {{- if .Values.rabbitmqAmqpsSupport.enabled }}
+    - name: amqps
+      protocol: TCP
+      port: {{ .Values.rabbitmqAmqpsSupport.amqpsNodePort }}
+      targetPort: amqps
     {{- end }}
     - name: http
       protocol: TCP
