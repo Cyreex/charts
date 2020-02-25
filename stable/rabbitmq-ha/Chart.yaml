@@ -8,6 +8,8 @@ description: The chart is based on the fork of the official RabbitMQ-HA chart.
 sources:
   - https://gitlab.tpondemand.net/infrastructure/rabbitmq-ha/
   - https://github.com/Cyreex/charts/tree/master/stable/rabbitmq-ha
+  - https://github.com/rabbitmq/rabbitmq	
+  - https://github.com/docker-library/rabbitmq
 maintainers:
   - name: Valentin Zayash
     email: zayash@targetprocess.com

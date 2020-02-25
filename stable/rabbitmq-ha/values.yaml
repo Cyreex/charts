@@ -308,6 +308,7 @@ persistentVolume:
     - ReadWriteOnce
   size: 6Gi
   annotations: {}
+  labels: {}
 
 # To use a hostPath for data, you need to set persistentVolume.enabled: false
 # and define hostPath.path
@@ -331,9 +332,12 @@ nodeSelector: []
 tolerations: []
 
 podAnnotations: {}
+statefulSetAnnotations: {}
 
 podAntiAffinity: hard
 podAntiAffinityTopologyKey: "kubernetes.io/hostname"
+
+affinity: {}
 
 existingConfigMap: false
 
@@ -428,6 +432,8 @@ prometheus:
 
 clusterDomain: cluster.local
 podDisruptionBudget: {}
+
+lifecycle: {}
 
 ## Sensu CRD configuration
 sensu:
