@@ -308,7 +308,6 @@ persistentVolume:
     - ReadWriteOnce
   size: 6Gi
   annotations: {}
-  labels: {}
 
 # To use a hostPath for data, you need to set persistentVolume.enabled: false
 # and define hostPath.path
@@ -333,22 +332,8 @@ tolerations: []
 
 podAnnotations: {}
 
-## Extra Annotations to be added to the StatefulSet
-statefulSetAnnotations: {}
-
-## Pod affinity
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 podAntiAffinity: hard
 podAntiAffinityTopologyKey: "kubernetes.io/hostname"
-
-## Affinity settings
-## Defining 'affinity' will disable any podAntiAffinity settings.
-## If you still need anti-affinity, you must include the configuration here.
-##
-affinity: {}
-
-## Create default configMap
-##
 
 existingConfigMap: false
 
@@ -443,8 +428,6 @@ prometheus:
 
 clusterDomain: cluster.local
 podDisruptionBudget: {}
-  # maxUnavailable: 1
-  # minAvailable: 1
 
 ## Sensu CRD configuration
 sensu:
@@ -453,5 +436,3 @@ sensu:
   subscriptions:
     - rabbitmq
     - rabbitmq-ha
-
-lifecycle: {}
